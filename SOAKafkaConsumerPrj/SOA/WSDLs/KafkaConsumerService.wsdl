@@ -1,0 +1,38 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="KafkaConsumerService"
+     targetNamespace="http://xmlns.oracle.com/SOAKafkaProducerApp/SOAKafkaConsumerPrj/KafkaConsumerService"
+     xmlns:tns="http://xmlns.oracle.com/SOAKafkaProducerApp/SOAKafkaConsumerPrj/KafkaConsumerService"
+     xmlns:inp1="http://xmlns.oracle.com/SOAKafkaProducerApp/SOAKafkaConsumerPrj/KafkaConsumerService"
+     xmlns:inp2="http://TargetNamespace.com/KafkaConsumerService_KafkaConsumerOperator_response"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <plnk:partnerLinkType name="KafkaConsumerService">
+        <plnk:role name="KafkaConsumerServiceProvider" portType="tns:KafkaConsumerService_ptt"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/SOAKafkaProducerApp/SOAKafkaConsumerPrj/KafkaConsumerService"
+             elementFormDefault="qualified">
+            <element name="empty">
+                <complexType/>
+            </element>
+        </schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://TargetNamespace.com/KafkaConsumerService_KafkaConsumerOperator_response"
+                 schemaLocation="../Schemas/kafkaconsumer_schema.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="Rest_EmptyMessage">
+        <wsdl:part name="Empty" element="tns:empty"/>
+    </wsdl:message>
+    <wsdl:message name="KafkaConsumerOperator_outputMessage">
+        <wsdl:part name="reply" element="inp2:Root-Element"/>
+    </wsdl:message>
+    <wsdl:portType name="KafkaConsumerService_ptt">
+        <wsdl:operation name="KafkaConsumerOperator">
+            <wsdl:input message="tns:Rest_EmptyMessage"/>
+            <wsdl:output message="tns:KafkaConsumerOperator_outputMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

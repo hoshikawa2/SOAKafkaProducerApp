@@ -1,0 +1,24 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="KafkaConsumerService">RestService</doc>
+   <grammars>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/SOAKafkaProducerApp/SOAKafkaConsumerPrj/KafkaConsumerService" elementFormDefault="qualified">
+            <element name="empty">
+                <complexType/>
+            </element>
+        </schema>
+      <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://TargetNamespace.com/KafkaConsumerService_KafkaConsumerOperator_response" schemaLocation="../Schemas/kafkaconsumer_schema.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/">
+         <method name="GET" soa:wsdlOperation="KafkaConsumerOperator">
+            <request soa:paramElement="pns:empty" xmlns:pns="http://xmlns.oracle.com/SOAKafkaProducerApp/SOAKafkaConsumerPrj/KafkaConsumerService"/>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:Root-Element" xmlns:cns="http://TargetNamespace.com/KafkaConsumerService_KafkaConsumerOperator_response"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

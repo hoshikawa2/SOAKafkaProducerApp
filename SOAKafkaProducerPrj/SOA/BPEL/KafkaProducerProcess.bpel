@@ -1,0 +1,91 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Fri Nov 06 11:50:17 BRST 2020
+  Author:  cristianohoshikawa
+  Type: BPEL 2.0 Process
+  Purpose: Asynchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="KafkaProducerProcess"
+         targetNamespace="http://xmlns.oracle.com/SOAKafkaProducerApp/SOAKafkaProducerPrj/KafkaProducerProcess"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:client="http://xmlns.oracle.com/SOAKafkaProducerApp/SOAKafkaProducerPrj/KafkaProducerProcess"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:ui="http://xmlns.oracle.com/soa/designer"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/SOAKafkaProducerApp/SOAKafkaProducerPrj/kafkaProducerService"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:ns2="http://TargetNamespace.com/kafkaProducerService_kafkaProducerOperation_request">
+    <import namespace="http://xmlns.oracle.com/SOAKafkaProducerApp/SOAKafkaProducerPrj/kafkaProducerService"
+            location="../WSDLs/kafkaProducerService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"
+            ui:processWSDL="true"/>    
+    <partnerLinks>
+        <partnerLink name="kafkaProducerService" partnerLinkType="ns1:kafkaProducerService"
+                     myRole="kafkaProducerServiceProvider"/>
+    </partnerLinks>
+    <variables>
+        <variable name="receiveInput_kafkaProducerOperation_InputVariable"
+                  messageType="ns1:kafkaProducerOperation_inputMessage"/>
+        <variable name="mensagem" type="xsd:string"/>
+        <variable name="Reply1_kafkaProducerOperation_OutputVariable"
+                  messageType="ns1:kafkaProducerOperation_outputMessage"/>
+    </variables>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        VARIABLES                                                        
+        List of messages and XML documents used within this BPEL process 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       ORCHESTRATION LOGIC                                               
+       Set of activities coordinating the flow of messages across the    
+       services integrated within this business process                  
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <sequence name="main">
+        <!-- Receive input from requestor. (Note: This maps to operation defined in KafkaProducerProcess.wsdl) -->
+        <receive name="receiveInput" partnerLink="kafkaProducerService" portType="ns1:kafkaProducerService_ptt"
+                 operation="kafkaProducerOperation" variable="receiveInput_kafkaProducerOperation_InputVariable" createInstance="yes"/>
+        <assign name="Assign1">
+            <copy>
+                <from>$receiveInput_kafkaProducerOperation_InputVariable.request/ns2:msg</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$mensagem</to>
+            </copy>
+        </assign>
+        <extensionActivity>
+            <bpelx:exec name="Java_Embedding1">
+                <![CDATA[String brokers = "cell-1.streaming.us-ashburn-1.oci.oraclecloud.com:9092";
+String username = "hoshikawaoraclecloud/oracleidentitycloudservice/hoshikawa2@hotmail.com/ocid1.streampool.oc1.iad.amaaaaaaihuwreyagjtsqtsamegi4nerjxxwspkckiokrvoukgztajzakb5a";
+String password = "";
+soakafka.KafkaExample c = new soakafka.KafkaExample(brokers, username, password);
+c.produce(getVariableData("mensagem").toString());
+//c.consume();]]>
+            </bpelx:exec>
+        </extensionActivity>
+        <assign name="Assign2">
+            <copy>
+                <from>$mensagem</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply1_kafkaProducerOperation_OutputVariable.reply</to>
+            </copy>
+        </assign>
+        <!-- 
+          Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
+        -->
+        <reply name="Reply1" partnerLink="kafkaProducerService"
+               variable="Reply1_kafkaProducerOperation_OutputVariable" portType="ns1:kafkaProducerService_ptt"
+               operation="kafkaProducerOperation"/>
+    </sequence>
+</process>
