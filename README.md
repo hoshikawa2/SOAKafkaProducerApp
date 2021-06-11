@@ -26,6 +26,8 @@ Nesta etapa, vamos criar um projeto com os seguintes objetivos:
     Iremos criar uma instância do Oracle Cloud Streaming com a finalidade de substituir o Kafka.
     O Oracle Cloud Streaming é a solução gerenciada da cloud Oracle para streaming de dados, com API REST compatível com o projeto open Kafka. Logo, a implementação aqui será compatível com o Kafka também se desejar alterar o apontamento para uma fila Kafka criada em uma máquina virtual ou mesmo em sua estrutura on-premisses
 
+O projeto completo está disponível com esta documentação, portanto, você pode simplesmente alterar as configurações para pode compilar, montar o pacote e implantar em sua instância de SOA SUITE.
+
 ### Build com Maven
 
 Antes de mais nada, para acessar o arquivo **pom.xml**, é preciso ter a visão do diretório do projeto. Para isto, você precisa ativar esta visão.
@@ -362,5 +364,36 @@ A VM bastion terá um IP público, o qual será possível realizar o acesso via 
 
 
 ### Automatizando o Deployment com o Oracle Visual Builder Studio
+
+![main-visual-builder-studio.png](https://github.com/hoshikawa2/repo-image/blob/master/main-visual-builder-studio.png?raw=true)
+
+![vbst-create-template.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-create-template.png?raw=true)
+
+![vbst-create-template-2.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-create-template-2.png?raw=true)
+
+![vbst-config-sw.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-config-sw.png?raw=true)
+
+![vbst-config-details.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-config-details.png?raw=true)
+
+
+![visual-builder-studio-project.png](https://github.com/hoshikawa2/repo-image/blob/master/visual-builder-studio-project.png?raw=true)
+
+![visual-builder-studio-create-job.png](https://github.com/hoshikawa2/repo-image/blob/master/visual-builder-studio-create-job.png?raw=true)
+
+![vbst-create-job-details.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-create-job-details.png?raw=true)
+
+![vbst-git.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-git.png?raw=true)
+
+![vbst-parameters.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-parameters.png?raw=true)
+
+![vbst-tunnel.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-tunnel.png?raw=true)
+
+![vbst-config-step.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-config-step.png?raw=true)
+
+![vbst-after-build.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-after-build.png?raw=true)
+
+![vbst-log-1.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-log-1.png?raw=true)
+
+![vbst-logs-2.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-logs-2.png?raw=true)
 
 
