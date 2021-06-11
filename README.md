@@ -15,6 +15,17 @@ O **Oracle Visual Builder Studio** é a ferramenta oficial da **Oracle** para au
 
 ESTE ARTIGO AINDA NÃO ESTÁ COMPLETO. FAVOR AGUARDAR A FINALIZAÇÃO
 
+### Criando seu projeto SOA SUITE
+
+Nesta etapa, vamos criar um projeto com os seguintes objetivos:
+
+* Projeto para produzir e consumir uma fila de Streaming como o Kafka
+* Serviço REST para testar ambos os serviços
+
+#
+    Iremos criar uma instância do Oracle Cloud Streaming com a finalidade de substituir o Kafka.
+    O Oracle Cloud Streaming é a solução gerenciada da cloud Oracle para streaming de dados, com API REST compatível com o projeto open Kafka. Logo, a implementação aqui será compatível com o Kafka também se desejar alterar o apontamento para uma fila Kafka criada em uma máquina virtual ou mesmo em sua estrutura on-premisses
+
 ### Build com Maven
 
 Antes de mais nada, para acessar o arquivo **pom.xml**, é preciso ter a visão do diretório do projeto. Para isto, você precisa ativar esta visão.
@@ -307,6 +318,48 @@ O arquivo **build.properties** determina as propriedades que serão utilizadas n
     
 
 ### O Servidor Weblogic SOA SUITE
+
+Você deve possuir uma instância ativa do **Oracle SOA SUITE** para que sua aplicação possa ser implantada.
+A instância a ser utilizada neste tutorial será a imagem disponibilizada em nosso **Marketplace** e contará com uma estrutura de SOA SUITE servida por um **bastion** para proteger o servidor.
+
+Para isto, vamos criar uma instância. Na console da **Oracle Cloud**, clique no menu principal (no canto esquerdo superior da tela), opção "Marketplace" e "All Applications" conforme abaixo:
+
+![market-place.png](https://github.com/hoshikawa2/repo-image/blob/master/market-place.png?raw=true)
+
+E na tela de busca de imagens, digite "soa suite" para encontrar a imagem correta:
+
+![marketplace-soa-suite.png](https://github.com/hoshikawa2/repo-image/blob/master/marketplace-soa-suite.png?raw=true)
+
+
+Clique na opção "Oracle SOA Suite (BYOL)" para iniciar a criação da instância. Você verá algumas opções obrigatórias para responder.
+
+    Confime a versão do SOA SUITE: 12.2.1.4 ou superior (este workshop foi desenvolvido com a versão 12.2.1.4)
+    Selecione o compartimento no qual você deseja que a instância de SOA SUITE seja criada
+    Confirme o aceite dos termos e condições do contrato de licenciamento
+
+    E clique no botão "Launch Stack":
+
+![soa-suite-creation.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-suite-creation.png?raw=true)
+
+
+Maiores detalhes na criação estarão neste documento:
+
+https://docs.oracle.com/en/cloud/paas/soa-cloud/soa-marketplace/soamp-create-and-view-oracle-soa-suite-instances.html
+
+Selecione o menu principal novamente na console da **Oracle Cloud**, Compute e Instances:
+
+![compute-select.png](https://github.com/hoshikawa2/repo-image/blob/master/compute-select.png?raw=true)
+
+
+Selecione o compartimento o qual você criou sua instância do SOA SUITE e ao selecioná-la você verá 2 máquinas virtuais: 
+
+* O Servidor SOA SUITE 
+* A VM que servirá de bastion para proteção do servidor SOA SUITE
+
+A VM bastion terá um IP público, o qual será possível realizar o acesso via Internet para acesso ao servidor SOA SUITE por intermédio da abertura de um túnel IP, explicado mais adiante.
+
+![instance-soa-suite-compute.png](https://github.com/hoshikawa2/repo-image/blob/master/instance-soa-suite-compute.png?raw=true)
+
 
 ### Automatizando o Deployment com o Oracle Visual Builder Studio
 
