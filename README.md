@@ -3,7 +3,7 @@
 
 O objetivo deste documento é proporcionar a construção de um projeto em **SOA SUITE** e que este possa ser implantado automaticamente através de processo de **DevOps** com o **Oracle Visual Builder Studio**.
 
-O **Oracle Visual Builder Studio** é a ferramenta oficial da **Oracle** para automação de processos **DevOPs** com as mais diferentes tecnologias, permitindo assim trabalhar com tecnologias como:
+O **Oracle Visual Builder Studio** é a ferramenta oficial da **Oracle** para automação de processos **DevOps** com as mais diferentes tecnologias, permitindo assim trabalhar com:
 
 * Kubernetes/Docker
 * functions
