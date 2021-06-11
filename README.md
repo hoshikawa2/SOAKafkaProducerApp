@@ -1,4 +1,20 @@
 
+# Oracle SOA SUITE - Deployments com Oracle Visual Builder Studio
+
+O objetivo deste documento é proporcionar a construção de um projeto em **SOA SUITE** e que este possa ser implantado automaticamente através de processo de **DevOps** com o **Oracle Visual Builder Studio**.
+
+O **Oracle Visual Builder Studio** é a ferramenta oficial da **Oracle** para automação de processos **DevOPs** com as mais diferentes tecnologias, permitindo assim trabalhar com tecnologias como:
+
+* Kubernetes/Docker
+* functions
+* Servidores de Aplicação como **Oracle Weblogic**, IIS, JBoss, Tomcat
+* **Oracle Forms**
+* **Oracle SOA SUITE**
+* **Oracle Integration (OIC)**
+* Entre várias outras tecnologias
+
+ESTE ARTIGO AINDA NÃO ESTÁ COMPLETO. FAVOR AGUARDAR A FINALIZAÇÃO
+
 ### Build com Maven
 
 Antes de mais nada, para acessar o arquivo **pom.xml**, é preciso ter a visão do diretório do projeto. Para isto, você precisa ativar esta visão.
@@ -291,4 +307,7 @@ O arquivo **build.properties** determina as propriedades que serão utilizadas n
     
 
 ### O Servidor Weblogic SOA SUITE
+
+### Automatizando o Deployment com o Oracle Visual Builder Studio
+
 
