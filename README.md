@@ -394,6 +394,8 @@ A VM bastion terá um IP público, o qual será possível realizar o acesso via 
 
 ![vbst-log-1.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-log-1.png?raw=true)
 
+![vbst-logs-3.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-logs-3.png?raw=true)
+
 ![vbst-logs-2.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-logs-2.png?raw=true)
 
 
