@@ -28,6 +28,28 @@ Nesta etapa, vamos criar um projeto com os seguintes objetivos:
 
 O projeto completo está disponível com esta documentação, portanto, você pode simplesmente alterar as configurações para pode compilar, montar o pacote e implantar em sua instância de SOA SUITE.
 
+![jdev-soa-1.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-soa-1.png?raw=true)
+
+![jdev-bpel-1.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-bpel-1.png?raw=true)
+
+![jdeve-receive-1.png](https://github.com/hoshikawa2/repo-image/blob/master/jdeve-receive-1.png?raw=true)
+
+![jdev-receive-detail.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-receive-detail.png?raw=true)
+
+![jdev-bpel-code.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-bpel-code.png?raw=true)
+
+![jdev-embedded-code-1.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-embedded-code-1.png?raw=true)
+
+![jdev-assign-1.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-assign-1.png?raw=true)
+
+![jdev-assign-details.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-assign-details.png?raw=true)
+
+![jdev-reply-1.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-reply-1.png?raw=true)
+
+![jdev-reply-details.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-reply-details.png?raw=true)
+
+
+
 ### Build com Maven
 
 Antes de mais nada, para acessar o arquivo **pom.xml**, é preciso ter a visão do diretório do projeto. Para isto, você precisa ativar esta visão.
