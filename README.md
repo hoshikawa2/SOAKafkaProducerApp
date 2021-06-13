@@ -28,7 +28,20 @@ Nesta etapa, vamos criar um projeto com os seguintes objetivos:
 
 O projeto completo está disponível com esta documentação, portanto, você pode simplesmente alterar as configurações para pode compilar, montar o pacote e implantar em sua instância de SOA SUITE.
 
+Baixe o projeto **SOAKafkaProducerApp** e abra as pastas até encontrar o arquivo de aplicação jws:
+
+    /SOAKafkaProducerApp/SOAKafkaProducerApp/SOAKafkaProducerApp.jws
+    
+Assim você poderá visualizar no **JDeveloper** os projetos
+* SOAKafkaProducerPrj
+* SOAKafkaConsumerPrj
+
+Clique na árvore da aplicação e procure por **SOAKakfaConsumerPrj** e dê duplo-clique conforme a imagem:
+
 ![jdev-soa-1.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-soa-1.png?raw=true)
+
+Esta é a visão do projeto SOA para consumo da fila Kafka. Trata-se de um serviço REST (componente disposto na raia **Exposed Services**) e deve ser implantado no SOA Server. O componente ligado ao serviço é a implementação do serviço propriamente e está disposto na raia **Components** conforme a imagem anterior.
+Ao dar um duplo-clique no componente KafkaConsumer você será direcionado para a implementação do serviço conforme abaixo:
 
 ![jdev-bpel-1.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-bpel-1.png?raw=true)
 
