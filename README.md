@@ -15,6 +15,11 @@ O **Oracle Visual Builder Studio** é a ferramenta oficial da **Oracle** para au
 
 ESTE ARTIGO AINDA NÃO ESTÁ COMPLETO. FAVOR AGUARDAR A FINALIZAÇÃO
 
+### Criando sua instância de Oracle Streaming
+
+![oracle-stream-service-connector-1.png](https://github.com/hoshikawa2/repo-image/blob/master/oracle-stream-service-connector-1.png?raw=true)
+
+
 ### Criando seu projeto SOA SUITE
 
 Nesta etapa, vamos criar um projeto com os seguintes objetivos:
