@@ -353,6 +353,50 @@ O arquivo **build.properties** determina as propriedades que serão utilizadas n
     WEBLOGICURL=${env.WEBLOGICURL}
     WEBLOGICUSER=${env.WEBLOGICUSER}
     
+### Inicializando o ambiente SOA SUITE para testes
+
+
+### Executando o Deployment Manual no SOA SUITE
+
+![soa-deploy-1.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-1.png?raw=true)
+
+![soa-deploy-2.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-2.png?raw=true)
+
+![soa-deploy-3.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-3.png?raw=true)
+
+![soa-deploy-4.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-4.png?raw=true)
+
+![soa-deploy-5.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-5.png?raw=true)
+
+![soa-deploy-6.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-6.png?raw=true)
+
+![soa-deploy-8.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-8.png?raw=true)
+
+![soa-deploy-9.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-9.png?raw=true)
+
+![soa-deploy-10.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-10.png?raw=true)
+
+![soa-deploy-11.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-11.png?raw=true)
+
+### Testando a aplicação
+
+Após a subida do ambiente de testes, sua instância estará disponível em:
+
+    http://localhost:7101/em
+    
+    Lembre-se de seu usuário e senha
+
+![soa-test-1.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-test-1.png?raw=true)
+
+![soa-test-2.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-test-2.png?raw=true)
+
+![soa-test-3.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-test-3.png?raw=true)
+
+![soa-test-4.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-test-4.png?raw=true)
+
+![soa-test-5.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-test-5.png?raw=true)
+
+
 
 ### O Servidor Weblogic SOA SUITE
 
