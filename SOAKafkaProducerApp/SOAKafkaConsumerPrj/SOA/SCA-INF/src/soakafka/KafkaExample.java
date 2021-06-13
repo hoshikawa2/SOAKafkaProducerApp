@@ -43,6 +43,8 @@ public class KafkaExample {
         props.put("sasl.mechanism", "PLAIN");
         props.put("sasl.jaas.config", jaasCfg);
         //props.put("ssl.client.auth", "requested");
+        props.put("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");  
+        props.put("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
     }
 
     public String consume() {
