@@ -40,10 +40,12 @@ Clique na árvore da aplicação e procure por **SOAKakfaConsumerPrj** e dê dup
 
 ![jdev-soa-1.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-soa-1.png?raw=true)
 
-Esta é a visão do projeto SOA para consumo da fila Kafka. Trata-se de um serviço REST (componente disposto na raia **Exposed Services**) e deve ser implantado no SOA Server. O componente ligado ao serviço é a implementação do serviço propriamente e está disposto na raia **Components** conforme a imagem anterior.
+Esta é a visão do projeto SOA para consumo da fila Kafka. Esta é uma implementação típica do tipo **SOA Composite**. Trata-se de um serviço REST (componente disposto na raia **Exposed Services**) e deve ser implantado no SOA Server. O componente ligado ao serviço é a implementação do serviço propriamente e está disposto na raia **Components** conforme a imagem anterior.
 Ao dar um duplo-clique no componente KafkaConsumer você será direcionado para a implementação do serviço conforme abaixo:
 
 ![jdev-bpel-1.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-bpel-1.png?raw=true)
+
+A primeira etapa de implementação inicia-se com um componente chamado Receive, responsável por receber parâmetro(s) iniciais de trabalho, típicos de uma chamada REST. Neste exemplo, não teremos passagem de parâmetros, mas fica aqui ilustrado para serviços que necessitarem deste recurso:
 
 ![jdeve-receive-1.png](https://github.com/hoshikawa2/repo-image/blob/master/jdeve-receive-1.png?raw=true)
 
@@ -51,7 +53,120 @@ Ao dar um duplo-clique no componente KafkaConsumer você será direcionado para 
 
 ![jdev-bpel-code.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-bpel-code.png?raw=true)
 
+O componente Java Embedded é responsável pela chamada a uma rotina Java que, neste caso irá chamar uma classe chamada KafaExample comentado mais adiante:
+
 ![jdev-embedded-code-1.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-embedded-code-1.png?raw=true)
+
+O código Java chamado neste Java Embedding é responsável pelas rotinas de produção e consumo da fila Kafka ou Oracle Strem (lembre-se de que a API para o Oracle Streaming é compatível com o Kakfa):
+
+		package soakafka;
+
+		import org.apache.kafka.clients.consumer.ConsumerRecord;
+		import org.apache.kafka.clients.consumer.ConsumerRecords;
+		import org.apache.kafka.clients.consumer.KafkaConsumer;
+		import org.apache.kafka.clients.producer.KafkaProducer;
+		import org.apache.kafka.clients.producer.Producer;
+		import org.apache.kafka.clients.producer.ProducerRecord;
+		import org.apache.kafka.common.serialization.StringSerializer;
+		import org.apache.kafka.common.serialization.StringDeserializer;
+
+		import java.util.Arrays;
+		import java.util.Date;
+		import java.util.Properties;
+
+		import java.util.concurrent.ExecutionException;
+
+		import org.apache.kafka.clients.producer.Callback;
+		import org.apache.kafka.common.errors.WakeupException;
+
+		public class KafkaExample {
+		    private final String topic;
+		    private final Properties props;
+
+		    public KafkaExample(String brokers, String username, String password) {
+		        this.topic = "kafka_like";
+
+		        String jaasTemplate = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";";
+		        String jaasCfg = String.format(jaasTemplate, username, password);
+
+		        String serializer = StringSerializer.class.getName();
+		        String deserializer = StringDeserializer.class.getName();
+		        //Propriedades
+		        props = new Properties();
+		        props.put("bootstrap.servers", brokers);
+		        props.put("group.id", "kafka-hoshikawa");
+		        props.put("enable.auto.commit", "false");
+		        props.put("max.poll.records", "10");
+		        props.put("auto.offset.reset", "earliest");
+		        props.put("key.deserializer", deserializer);
+		        props.put("value.deserializer", deserializer);
+		        props.put("security.protocol", "SASL_SSL");
+		        props.put("sasl.mechanism", "PLAIN");
+		        props.put("sasl.jaas.config", jaasCfg);
+		        //props.put("ssl.client.auth", "requested");
+		    }
+
+		    public String consume() {
+		        String ret = "";
+		        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
+		        consumer.subscribe(Arrays.asList(topic));
+
+		        try {
+		          while (true) {
+		            ConsumerRecords<String, String> records = consumer.poll(100);
+		            for (ConsumerRecord<String, String> record : records)
+		            {
+		              System.out.println(record.offset() + ": " + record.value());
+		              ret = ret + record.value();
+		            }
+		              if (ret != "")
+		                break;
+		          }
+		        } catch (Exception e) {
+		          // ignore for shutdown
+		        } finally {
+		          consumer.commitAsync();
+		          consumer.close();
+		        }
+		        return ret;
+		    };
+
+		    public void produce(String message) {
+		        Producer<String, String> producer = new KafkaProducer<String, String>(props);
+		        ProducerRecord record = new ProducerRecord<String, String>(topic, "msg", message);
+
+		        Callback callback = (data, ex) -> {
+		            if (ex != null) {
+		                ex.printStackTrace();
+		                return;
+		            }
+		            System.out.println(
+		                "Mensagem enviada com sucesso para: " + data.topic() + " | partition " + data.partition() + "| offset " + data.offset() + "| tempo " + data
+		                    .timestamp());
+		        };
+		        try {
+		            producer.send(record, callback).get();
+		        } catch (ExecutionException | InterruptedException e) {
+		        }
+		        finally {
+		            producer.close();
+		        }
+		    }
+
+		    public static void main(String[] args) {
+		                /*
+				String brokers = System.getenv("CLOUDKARAFKA_BROKERS");
+				String username = System.getenv("CLOUDKARAFKA_USERNAME");
+				String password = System.getenv("CLOUDKARAFKA_PASSWORD");
+		                */
+		                String brokers = "cell-1.streaming.us-ashburn-1.oci.oraclecloud.com:9092";
+		                String username = "hoshikawaoraclecloud/oracleidentitycloudservice/hoshikawa2@hotmail.com/ocid1.streampool.oc1.iad.amaaaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxkgztajzakb5a";
+		                String password = "Wxxxxxxxxxxxxxxxxxxxxxxk";
+				KafkaExample c = new KafkaExample(brokers, username, password);
+		        c.consume();
+		    }
+		}
+
 
 ![jdev-assign-1.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-assign-1.png?raw=true)
 
@@ -396,6 +511,13 @@ Após a subida do ambiente de testes, sua instância estará disponível em:
 
 ![soa-test-5.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-test-5.png?raw=true)
 
+Preencha o parâmetro de mensagem exigido pelo serviço, conforme a implementação. Este parâmetro foi chamado de "msg" e o formato da mensagem é JSON conforme os passos anteriores:
+
+![soa-test-producer-1a.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-test-producer-1a.png?raw=true)
+
+Após inserir sua mensagem no formato JSON, clique em "Test Web Service" para executar seu serviço de Producer na fila de mensagens:
+
+![soa-test-producer-2.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-test-producer-2.png?raw=true)
 
 
 ### O Servidor Weblogic SOA SUITE
