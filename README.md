@@ -498,6 +498,25 @@ O arquivo **build.properties** determina as propriedades que serão utilizadas n
 
 ![soa-deploy-11.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-11.png?raw=true)
 
+### Instalando o certificado JKS no Weblogic:
+
+1. Obtendo o certificado do Oracle Cloud Streaming
+
+#
+    https://docs.oracle.com/en/cloud/paas/integration-cloud/stream-service-adapter/prerequisites-creating-connection.html
+
+2. Gerando o arquivo JKS
+3. Instalando o arquivo JKS no Weblogic
+
+#
+
+
+    cd /u01/app/oracle/middleware/wlserver/server/lib
+    
+    sudo keytool -importcert -file streaming_us-ashburn-1_oci_oraclecloud_com.crt -keystore DemoTrust.jks -alias “kafka" -storepass DemoTrustKeyStorePassPhrase
+    Senha: DemoIdentityKeyStorePassPhrase
+
+
 ### Testando a aplicação
 
 Após a subida do ambiente de testes, sua instância estará disponível em:
