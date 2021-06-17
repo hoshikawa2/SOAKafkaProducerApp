@@ -604,4 +604,54 @@ A VM bastion terá um IP público, o qual será possível realizar o acesso via 
 
 ![vbst-logs-2.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-logs-2.png?raw=true)
 
+### Referências
+
+##### Oracle Streaming Fast Tutorial
+https://blogs.oracle.com/developers/getting-started-with-oracle-streaming-service-oss
+
+##### Incorporating Java and Java EE Code in a BPEL Process
+https://docs.oracle.com/middleware/1221/soasuite/develop/GUID-7D0BA7EC-65EB-4462-8761-6911D79EFF6A.htm#SOASE500
+https://docs.oracle.com/cd/E15586_01/integration.1111/e10224/bp_java.htm#BABDCCED
+
+##### How to Integrate with Java in SOA SUITE
+https://redthunder.blog/2016/11/22/teaching-how-to-integrate-with-java-code-in-oracle-soa-composites/
+
+##### Using the Oracle Cloud Infrastructure Streaming Service Adapter with Oracle Integration
+https://docs.oracle.com/en/cloud/paas/integration-cloud/stream-service-adapter/prerequisites-creating-connection.html
+
+    cd /u01/app/oracle/middleware/wlserver/server/lib
+    
+    sudo keytool -importcert -file streaming_us-ashburn-1_oci_oraclecloud_com.crt -keystore DemoTrust.jks -alias “kafka" -storepass DemoTrustKeyStorePassPhrase
+
+##### How to use an SSH Tunnel in Oracle Developer Cloud Service Build Jobs
+https://learncodeshare.net/2018/10/31/how-to-use-an-ssh-tunnel-in-oracle-developer-cloud-service-build-jobs/
+
+##### Deploy with Visual Builder Studio
+https://docs.oracle.com/en/cloud/paas/developer-cloud/csdcs/deploy-application.html#GUID-5122E3C6-A929-4900-A853-E794A006E52E
+
+    Use este guia para implementar infra-estrutura como código
+    
+##### Habilitando túneis no Weblogic
+https://munzandmore.com/2015/ora/http-instead-t3-weblogic-wlst
+
+##### Weblogic REST API Services
+https://docs.oracle.com/middleware/1221/wls/WLRUR/examples.htm#WLRUR193
+
+##### How to Deploy a Single SOA Composite in Oracle JDeveloper
+https://docs.oracle.com/middleware/1213/soasuite/develop/GUID-F2B6386E-0F68-4797-96D2-196800394FEF.htm#SOASE158
+
+##### Patching SOA Composite Instances in Oracle 12.2.1
+https://blogs.oracle.com/integration/post/patching-soa-composite-instances-in-oracle-1221
+
+
+    A new Composite Instance Patching feature has been introduced in SOA Suite 12.2.1 which enables you to deliver urgent composite fixes that can be picked up by long running instances.  This feature is part of Oracle Integration Continuous Availability.  Please refer to the Oracle Fusion Middleware Developing SOA Applications with Oracle SOA Suite documentation for additional information.
+    
+##### How to Configure JDeveloper to deploy into SOACS
+https://redthunder.blog/2016/11/22/teaching-how-to-configure-jdveloper-to-deploy-into-soacs/
+
+##### Using the Oracle Cloud Infrastructure Streaming Service Adapter with Oracle Integration
+https://docs.oracle.com/en/cloud/paas/integration-cloud/stream-service-adapter/prerequisites-creating-connection.html
+
+##### Weblogic integrated server Demo Identity Keystore and Demo Trust Keystore
+http://sanjeev-technology.blogspot.com/2016/07/weblogic-integrated-server-demo.html
 
