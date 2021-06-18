@@ -511,11 +511,29 @@ O arquivo **build.properties** determina as propriedades que serão utilizadas n
 #
 
 
-    cd /u01/app/oracle/middleware/wlserver/server/lib
-    
-    sudo keytool -importcert -file streaming_us-ashburn-1_oci_oraclecloud_com.crt -keystore DemoTrust.jks -alias “kafka" -storepass DemoTrustKeyStorePassPhrase
-    Senha: DemoIdentityKeyStorePassPhrase
+	echo -n | openssl s_client -connect streaming.region-1.oci.oraclecloud.com:9092 | sed -ne  '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > ociStreaming.cert
+	keytool -keystore Streaming_truststore.jks -alias OSSStream -import -file ociStreaming.cert
+	
+	sudo keytool -importcert -file ociStreaming.cert -keystore DemoTrust.jks -alias "kafka" -storepass DemoTrustKeyStorePassPhrase
+	
+Por exemplo:
 
+	echo -n | openssl s_client -connect streaming.us-ashburn-1.oci.oraclecloud.com:9092 | sed -ne  '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > ociStreaming.cert
+	keytool -keystore Streaming_truststore.jks -alias OSSStream -import -file ociStreaming.cert
+
+	sudo keytool -importcert -file ociStreaming.cert -keystore DemoTrust.jks -alias "kafka" -storepass DemoTrustKeyStorePassPhrase
+
+Vá para a pasta 
+	
+	Encontre sua pasta do wlserver que normalmente possui este caminho:
+	/wlserver/server/lib
+	
+	Por exemplo:
+	cd /u01/app/oracle/middleware/wlserver/server/lib
+	cd /User/u01/Oracle/Middleware/Oracle_Home/wlserver/server/lib
+
+
+E substitua o arquivo DemoTrust.jks pelo gerado nesta etapa
 
 ### Testando a aplicação
 
