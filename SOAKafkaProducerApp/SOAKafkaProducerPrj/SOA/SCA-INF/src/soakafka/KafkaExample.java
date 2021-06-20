@@ -39,8 +39,8 @@ public class KafkaExample {
         props.put("sasl.mechanism", "PLAIN");
         props.put("sasl.jaas.config", jaasCfg);
         //props.put("ssl.client.auth", "requested");
-        props.put("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");  
-        props.put("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
+        props.put("ssl.truststore.location", "/Users/cristianohoshikawa/Oracle/Middleware/Oracle_Home/wlserver/server/lib/DemoTrust.jks");
+        props.put("ssl.truststore.password", "DemoTrustKeyStorePassPhrase");        
     }
 
     public String consume() {
