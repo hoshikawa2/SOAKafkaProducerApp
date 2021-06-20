@@ -475,6 +475,7 @@ O arquivo **build.properties** determina as propriedades que serão utilizadas n
     
 ### Inicializando o ambiente SOA SUITE para testes
 
+Primeiramente abra a porta do firewall de seu ambiente SOA SUITE. A porta a ser liberada é a 9092.
 
 ### Executando o Deployment Manual no SOA SUITE
 
@@ -511,17 +512,27 @@ O arquivo **build.properties** determina as propriedades que serão utilizadas n
 #
 
 
-	echo -n | openssl s_client -connect streaming.region-1.oci.oraclecloud.com:9092 | sed -ne  '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > ociStreaming.cert
+	echo -n | openssl s_client -connect cell-1.streaming.us-ashburn-1.oci.oraclecloud.com:9092 | sed -ne  '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > ociStreaming.cert
 	keytool -keystore Streaming_truststore.jks -alias OSSStream -import -file ociStreaming.cert
 	
 	sudo keytool -importcert -file ociStreaming.cert -keystore DemoTrust.jks -alias "kafka" -storepass DemoTrustKeyStorePassPhrase
 	
 Por exemplo:
 
-	echo -n | openssl s_client -connect streaming.us-ashburn-1.oci.oraclecloud.com:9092 | sed -ne  '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > ociStreaming.cert
+	echo -n | openssl s_client -connect cell-1.streaming.us-ashburn-1.oci.oraclecloud.com:9092 | sed -ne  '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > ociStreaming.cert
 	keytool -keystore Streaming_truststore.jks -alias OSSStream -import -file ociStreaming.cert
 
 	sudo keytool -importcert -file ociStreaming.cert -keystore DemoTrust.jks -alias "kafka" -storepass DemoTrustKeyStorePassPhrase
+
+Caso você queira gerar ou deletar as keystores por alias, siga esses passos:
+
+    sudo keytool -import -v -file streaming.us-ashburn-1.oci.oraclecloud.com.cer -storepass changeit -keystore /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/security/cacerts -alias "kafka" 
+
+    sudo keytool -delete -alias kafka -keystore /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/security/cacerts -storepass changeit
+
+    sudo keytool -import -v -file streaming.us-ashburn-1.oci.oraclecloud.com.cer -keystore DemoTrust.jks -alias "kafka" -storepass DemoTrustKeyStorePassPhrase
+
+    sudo keytool -delete -alias kafka -keystore DemoTrust.jks -storepass DemoTrustKeyStorePassPhrase
 
 Vá para a pasta 
 	
@@ -533,7 +544,12 @@ Vá para a pasta
 	cd /User/u01/Oracle/Middleware/Oracle_Home/wlserver/server/lib
 
 
-E substitua o arquivo DemoTrust.jks pelo gerado nesta etapa
+E substitua o arquivo DemoTrust.jks pelo gerado nesta etapa.
+
+Após copiar o arquivo DemoTrust.jks, você deve alterar o diretório no qual você implantou o arquivo. Altere os arquivos /src/soakafka/KafkaExemplo.java de ambos os projetos (SOAKafkaProducerprj e SOAKafkaConsumerprj) na criação da classe conforme abaixo:
+
+![change-truststore-soa-1.png](https://github.com/hoshikawa2/repo-image/blob/master/change-truststore-soa-1.png?raw=true)
+
 
 ### Testando a aplicação
 
