@@ -675,34 +675,130 @@ A VM bastion terá um IP público, o qual será possível realizar o acesso via 
 ![instance-soa-suite-compute.png](https://github.com/hoshikawa2/repo-image/blob/master/instance-soa-suite-compute.png?raw=true)
 
 
+Para estabelecer um túnel entre o Servidor Bastion e a instância do SOA SUITE, você poderá fazê-lo através do comando SSH conforme abaixo:
+
+    ssh -Y -i <Arq.Chave SSH> -L <Port SOA>:<IP Instancia SOA SUITE>:<Port External> opc@<IP Público Bastion>
+    
+    Exemplo:
+    ssh -Y -i chavesrvbastion.pem -L 7002:10.253.128.9:7002 opc@152.67.55.11
+    
+    Após estabelecer a conexão via Bastion, será possível acessar o Enterprise Manager do Weblogic com http://localhost:7002/em
+
 ### Automatizando o Deployment com o Oracle Visual Builder Studio
 
-![main-visual-builder-studio.png](https://github.com/hoshikawa2/repo-image/blob/master/main-visual-builder-studio.png?raw=true)
-
+Agora vamos automatizar o deployment das implementações SOA para o servidor Weblogic criado na etapa anterior.
+Para isto, você precisará de uma instância do **Oracle Visual Builder Studio**.
+#
+O **Oracle Visual Builder Studio** trabalha por projetos, logo você poderá criar um projeto e incluir os usuários que farão parte na execução deste.
+#
+Você poderá ter mais informações de operação na sessão REFERÊNCIAS ao final deste documento, procure por **Deploy with Visual Builder Studio**.
+#
+A seguir, siga os passos para configurar um build automatizado e deployment de suas implementações SOA SUITE para o servidor Weblogic.
+#### Configurando uma máquina virtual para BUILD no ORACLE SOA SUITE
+#
+Antes de iniciar as configurações, você precisará configurar uma máquina virtual que atenda as necessidades de compilar um projeto **Oracle SOA SUITE**, para isto, você precisará selecionar as ferramentas corretas para serem instaladas nesta VM.
+#
+Clique em **Organization** no menu lateral esquerdo e em **Virtual Machine Templates**:
 ![vbst-create-template.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-create-template.png?raw=true)
 
+Clique então em "Create Template" para configurar quais ferramentas estarão disponíveis para o build de seus projetos em SOA SUITE.
+#
+Digite então um nome para seu **Template** e se quiser, opcionalmente, pode descrever sobre este template.
+Não esqueça de selecionar qual será a plataforma desta VM. Escolha a opção **Oracle Linux** (até a data deste documento, tínhamos o Oracle Linux 7, porém você poderá selecionar outra opção mais recente.
 ![vbst-create-template-2.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-create-template-2.png?raw=true)
-
+Aqui, você deverá selecionar todos os componentes importantes para o build de seus projetos. Escolha todas as opções conforme abaixo:
 ![vbst-config-sw.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-config-sw.png?raw=true)
 
 ![vbst-config-details.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-config-details.png?raw=true)
 
+Pronto! Seu TEMPLATE está criado e sua VM será instanciada assim que algum projeto peça por um build. O que será feito na etapa seguinte.
 
+#### Configuração de BUILD de um projeto no **Oracle Visual Builder Studio**
+
+#
+Primeiramente, abra um projeto dentro do **Oracle Visual Builder Studio**, no exemplo abaixo, clique em **CRISTIANO HOSHIKAWA PROJ**:
+
+![main-visual-builder-studio.png](https://github.com/hoshikawa2/repo-image/blob/master/main-visual-builder-studio.png?raw=true)
+
+Você verá a página de seu projeto, juntamente com um menu lateral esquerdo com as opções disponíveis e do lado direito seus projetos no repositório de código-fonte e também o time que faz parte deste projeto (usuários do projeto).
 ![visual-builder-studio-project.png](https://github.com/hoshikawa2/repo-image/blob/master/visual-builder-studio-project.png?raw=true)
 
+Clique na opção BUILD no menu lateral esquerdo para visualizar todas as configurações existentes e em seguida, vamos configurar um novo BUILD de seu projeto. Clique em "Create Job".
 ![visual-builder-studio-create-job.png](https://github.com/hoshikawa2/repo-image/blob/master/visual-builder-studio-create-job.png?raw=true)
 
+Digite um nome para seu Job e também selecione o Template de VM (criado na sessão anterior):
 ![vbst-create-job-details.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-create-job-details.png?raw=true)
 
+Agora vamos configurar passo-a-passo o build de seu projeto.
+#
+A primeira parte da configuração será estabelecer o repositório do projeto Oracle SOA SUITE que deverá ser previamente criado com o código-fonte. Neste documento, estamos trabalhando com o projeto SOAKafkaProducerApp disponível no git deste documento. 
+#
+Você poderá clonar este projeto para o git de sua instância de **Oracle Visual Builder Studio**.
+#
+Após clonar o projeto SOAKafkaProducerApp para seu Visual Builder Studio, configure seu BUILD com o nome do repositório git e selecione a opção "Automatically perform build on SCM commit". Confira também se o nome do branch corresponde ao seu projeto git.
 ![vbst-git.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-git.png?raw=true)
+
+Selecione agora a aba "Parameters". Você deverá criar 3 parâmetros com o menu Combobox "Add Parameters" ao lado direito. Abaixo, os nomes que devem ser criados e também entre parêntesis, o tipo: 
+
+    WEBLOGICUSER: o usuário Weblogic (tipo String)
+    WEBLOGICPWD: a senha do seu usuário Weblogic (tipo Secret/Password)
+    WEBLOGICURL: a URL de sua instância Weblogic (tipo String)
+    
+    Uma observação importante é que a URL em WEBLOGICURL deverá ser localhost
+    pois será estabelecido um túnel através do Servidor Bastion
 
 ![vbst-parameters.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-parameters.png?raw=true)
 
+Clique agora na aba "Before Build" para configurarmos o túnel SSH do Servidor Bastion para o Servidor Weblogic SOA SUITE.
+#
+Lembre-se de ter em mãos a chave SSH (Private Key) e preencha o campo correspondente.
+#
+Juntamente, preencha os dados para a montagem do túnel. 
+
+    Username: opc
+    Local Port: 11002
+    Remote Host: <IP privado de sua instância SOA SUITE>
+    Remote Port: 11002
+    SSH Server: <IP público do Servidor Bastion>
+    
+    Uma observação importante é que a porta 11002 foi previamente configurada para que seja exatamente a porta de acesso para o deployment de seus projetos SOA SUITE
+
 ![vbst-tunnel.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-tunnel.png?raw=true)
+
+Clique na aba "Steps" para configurar o BUILD (via Maven) e o DEPLOYMENT (via ANT) de seu projeto SOA SUITE.
+#
+Preencha da seguinte forma:
+    Goals: compile package
+    POM File: SOAKafkaProducerApp/SOAKafkaConsumerPrj/SOA/SCA-INF/pom.xml
+    Este é o arquivo pom.xml Maven para a montagem do pacote de seu projeto
+    
+    Targets: sca-package deploy
+    Build File: SOAKafkaProducerApp/SOAKafkaConsumerPrj/build.xml
+    Este é o arquivo build.xml Ant para o deployment de sua aplicação após o build
+    
+    Observação importante, a aplicação SOAKafkaProducerApp possui 2 projetos:
+    SOAKafkaProducerPrj
+    SOAKafkaConsumerPrj
+    
+    Estamos ilustrando a configuração de um dos projetos. Os mesmos passos devem
+    ser executados para o outro projeto.
 
 ![vbst-config-step.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-config-step.png?raw=true)
 
+Agora vamos finalizar a configuração do BUILD. Selecione a aba "After Build".
+#
+Esta etapa é opcional, porém você poderá querer gerar o artefato criado pela etapa anterior, na execução do Maven.
+#
+Para isto, configure esta etapa para que seja gerado o artefato para download posterior.
+
 ![vbst-after-build.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-after-build.png?raw=true)
+
+#### Executando o BUILD no Oracle Visual Builder Studio
+Pronto! uma vez configurado, todas as vezes em que houver um **commit** em seu repositório de código (git do Visual Builder Studio), o BUILD será inicializado automaticamente.
+#
+Você poderá também executar o BUILD manualmente, para isto basta você clicar na opção de BUILD.
+#
+Experimente executar o BUILD e poderá verificar os Logs gerados
 
 ![vbst-log-1.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-log-1.png?raw=true)
 
