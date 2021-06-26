@@ -17,7 +17,60 @@ ESTE ARTIGO AINDA NÃO ESTÁ COMPLETO. FAVOR AGUARDAR A FINALIZAÇÃO
 
 ### Criando sua instância de Oracle Streaming
 
-![oracle-stream-service-connector-1.png](https://github.com/hoshikawa2/repo-image/blob/master/oracle-stream-service-connector-1.png?raw=true)
+Primeiramente, vamos criar um grupo de usuários para Streaming e habilitar os usuários neste grupo.
+Feito isto, podemos então determinar os acessos a este grupo através das Policies.
+Abaixo, veja um exemplo de como determinar os acessos para utilizar o Oracle Cloud Streaming:
+
+![oracle-stream-policies.png](https://github.com/hoshikawa2/repo-image/blob/master/oracle-stream-policies.png?raw=true)
+
+Agora vamos criar a instância do Oracle Cloud Streaming. No menu principal, selecione a opção "Analytics & AI" e "Streaming" conforme a figura abaixo.
+
+![oracle-streaming-menu.png](https://github.com/hoshikawa2/repo-image/blob/master/oracle-streaming-menu.png?raw=true)
+
+Feito isto, você verá a console com as instâncias de Oracle Cloud Streaming.
+Para criar sua instância, selecione o compartimento e clique em "Create Stream"
+
+![oracle-stream-create-1.png](https://github.com/hoshikawa2/repo-image/blob/master/oracle-stream-create-1.png?raw=true)
+
+Após esta etapa, preencha os dados de sua instância, como o nome, compartimento.
+Além disto, solicite que seja criada um novo Pool de Stream e forneça um nome para seu pool. Clique em "Create".
+
+![oracle-stream-create-2.png](https://github.com/hoshikawa2/repo-image/blob/master/oracle-stream-create-2.png?raw=true)
+
+Aguarde que a criação fique completa.
+
+![oracle-stream-complete-create.png](https://github.com/hoshikawa2/repo-image/blob/master/oracle-stream-complete-create.png?raw=true)
+
+### Obtendo as configurações da REST API compatível com Kafka
+
+Vamos agora obter as configurações da API REST do Kafka clicando no link "Kafka Connect Configurations" conforme abaixo:
+
+![oracle-stream-kafka-connection-1.png](https://github.com/hoshikawa2/repo-image/blob/master/oracle-stream-kafka-connection-1.png?raw=true)
+
+Vamos então criar a configuração selecionando o compartimento e clicando na opção "Create Kafka Connect Configuration"
+
+![oracle-stream-create-kafka-conn.png](https://github.com/hoshikawa2/repo-image/blob/master/oracle-stream-create-kafka-conn.png?raw=true)
+
+Preencha o compartimento e o nome de sua configuração conforme abaixo. Crie a configuração clicando em "Create Kafka Connect Configuration"
+
+![oracle-stream-kafka-config.png](https://github.com/hoshikawa2/repo-image/blob/master/oracle-stream-kafka-config.png?raw=true)
+
+Vamos buscar os parâmetros de configuração para conectar ao Oracle Cloud Stream.
+Vá até a opção "Streams" nos links à esquerda:
+
+![oracle-stream-link.png](https://github.com/hoshikawa2/repo-image/blob/master/oracle-stream-link.png?raw=true)
+
+E logo após, clique no seu Pool criado anteriormente:
+
+![oracle-stream-default-pool.png](https://github.com/hoshikawa2/repo-image/blob/master/oracle-stream-default-pool.png?raw=true)
+
+E por último, clique em "Kafka Connection Settings"
+
+![oracle-stream-parameters.png](https://github.com/hoshikawa2/repo-image/blob/master/oracle-stream-parameters.png?raw=true)
+
+Pronto! Copie os parâmetros para utilizar em seu código Java:
+
+![oracle-stream-parameters-view.png](https://github.com/hoshikawa2/repo-image/blob/master/oracle-stream-parameters-view.png?raw=true)
 
 
 ### Criando seu projeto SOA SUITE
