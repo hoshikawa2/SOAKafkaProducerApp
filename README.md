@@ -825,6 +825,9 @@ Experimente executar o BUILD e poderá verificar os Logs gerados
 
 ### Referências
 
+##### Integrating REST Operations in SOA Composite Applications
+https://docs.oracle.com/en/middleware/soa-suite/soa/12.2.1.3/develop/integrating-rest-operations-soa-composite-applications.html#GUID-F11C4900-67D6-4434-83AC-8EB1D52BE238
+
 ##### Oracle Streaming Fast Tutorial
 https://blogs.oracle.com/developers/getting-started-with-oracle-streaming-service-oss
 
