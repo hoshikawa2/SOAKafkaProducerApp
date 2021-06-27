@@ -554,6 +554,15 @@ Primeiramente abra a porta do firewall de seu ambiente SOA SUITE. A porta a ser 
 
 ### Instalando o certificado JKS no Weblogic:
 
+Em ambientes SSL será necessário criar uma segurança através de chaves (pública/privada) o qual será feito através de certificados JKS, próprios para o ambiente WebLogic.
+O processo de geração da chave é feito através da obtenção do certificado de sua instância de **Oracle Cloud Streaming** e adição deste certificado a um arquivo **JKS**, o qual chamaremos de **DemoTrust** (DemoTrust.jks).
+
+    Ponto importante:
+    O arquivo DemoTrust.jks será carimbado com um ALIAS e também com uma senha 
+    o qual será utilizado em seu código Java
+
+Após criar seu arquivo JKS, você poderá mover este arquivo para a estrutura do seu servidor WebLogic.
+
 1. Obtendo o certificado do Oracle Cloud Streaming
 
 #
