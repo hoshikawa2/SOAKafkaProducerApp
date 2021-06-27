@@ -768,20 +768,28 @@ Juntamente, preencha os dados para a montagem do túnel.
 Clique na aba "Steps" para configurar o BUILD (via Maven) e o DEPLOYMENT (via ANT) de seu projeto SOA SUITE.
 #
 Preencha da seguinte forma:
+
+    MAVEN
     Goals: compile package
     POM File: SOAKafkaProducerApp/SOAKafkaConsumerPrj/SOA/SCA-INF/pom.xml
     Este é o arquivo pom.xml Maven para a montagem do pacote de seu projeto
     
+    ANT
     Targets: sca-package deploy
     Build File: SOAKafkaProducerApp/SOAKafkaConsumerPrj/build.xml
     Este é o arquivo build.xml Ant para o deployment de sua aplicação após o build
-    
+    Properties:
+        WEBLOGICUSER=${WEBLOGICUSER}
+        WEBLOGICPWD=${WEBLOGICPWD}
+        WEBLOGICURL=${WEBLOGICURL}    
+
     Observação importante, a aplicação SOAKafkaProducerApp possui 2 projetos:
     SOAKafkaProducerPrj
     SOAKafkaConsumerPrj
     
     Estamos ilustrando a configuração de um dos projetos. Os mesmos passos devem
     ser executados para o outro projeto.
+
 
 ![vbst-config-step.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-config-step.png?raw=true)
 
