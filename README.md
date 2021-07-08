@@ -117,6 +117,7 @@ O componente Java Embedded é responsável pela chamada a uma rotina Java que, n
 
 O código Java chamado neste Java Embedding é responsável pelas rotinas de produção e consumo da fila Kafka ou Oracle Strem (lembre-se de que a API para o Oracle Streaming é compatível com o Kakfa):
 
+```java
 		package soakafka;
 
 		import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -225,7 +226,7 @@ O código Java chamado neste Java Embedding é responsável pelas rotinas de pro
 		    }
 		}
 
-
+```
 ![jdev-assign-1.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-assign-1.png?raw=true)
 
 ![jdev-assign-details.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-assign-details.png?raw=true)
@@ -271,6 +272,7 @@ Aqui uma alteração muito importante para o processo de **DevOps**. Você **PRE
 
 Logo, o seu código completo ficaria assim:
 
+```xml
     pom.xml
     
     <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -346,7 +348,7 @@ Logo, o seu código completo ficaria assim:
     </project>
 
 
-
+```
 ### Build e Deployment com Ant
 
 **Ant** é uma ferramenta já bastante conhecida no mercado, desenvolvida pelo projeto **Jakarta**, responsável por automatizar compilações, builds de pacotes e deployments de aplicações para projetos como o Java.
@@ -356,7 +358,7 @@ No processo de **DevOps** o **Ant** será fundamental para a construção do pac
 O arquivo **build.xml** é um arquivo de configuração muito comum para utilização com o **Ant**. O formato deste arquivo é no formato **XML**
 
 
-
+```xml
     build.xml
     
     <?xml version="1.0" encoding="UTF-8" ?>
@@ -500,8 +502,10 @@ O arquivo **build.xml** é um arquivo de configuração muito comum para utiliza
       </target>
     </project>
 
+```
 
 O arquivo **build.properties** determina as propriedades que serão utilizadas no arquivo de configuração **build.xml** 
+
 
     build.properties
     
