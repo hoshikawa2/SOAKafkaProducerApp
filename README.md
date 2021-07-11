@@ -592,6 +592,7 @@ Por exemplo:
 
 Caso você queira gerar ou deletar as keystores por alias, siga esses passos:
 
+```shell
     sudo keytool -import -v -file streaming.us-ashburn-1.oci.oraclecloud.com.cer -storepass changeit -keystore /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/security/cacerts -alias "kafka" 
 
     sudo keytool -delete -alias kafka -keystore /Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/security/cacerts -storepass changeit
@@ -599,7 +600,7 @@ Caso você queira gerar ou deletar as keystores por alias, siga esses passos:
     sudo keytool -import -v -file streaming.us-ashburn-1.oci.oraclecloud.com.cer -keystore DemoTrust.jks -alias "kafka" -storepass DemoTrustKeyStorePassPhrase
 
     sudo keytool -delete -alias kafka -keystore DemoTrust.jks -storepass DemoTrustKeyStorePassPhrase
-
+```
 Vá para a pasta 
 	
 	Encontre sua pasta do wlserver que normalmente possui este caminho:
@@ -690,11 +691,13 @@ A VM bastion terá um IP público, o qual será possível realizar o acesso via 
 
 Para estabelecer um túnel entre o Servidor Bastion e a instância do SOA SUITE, você poderá fazê-lo através do comando SSH conforme abaixo:
 
+```shell
     ssh -Y -i <Arq.Chave SSH> -L <Port SOA>:<IP Instancia SOA SUITE>:<Port External> opc@<IP Público Bastion>
     
     Exemplo:
     ssh -Y -i chavesrvbastion.pem -L 7002:10.253.128.9:7002 opc@152.67.55.11
-    
+
+```    
     Após estabelecer a conexão via Bastion, será possível acessar o Enterprise Manager do Weblogic com http://localhost:7002/em
 
 ### Automatizando o Deployment com o Oracle Visual Builder Studio
@@ -828,6 +831,9 @@ Experimente executar o BUILD e poderá verificar os Logs gerados
 ![vbst-logs-2.png](https://github.com/hoshikawa2/repo-image/blob/master/vbst-logs-2.png?raw=true)
 
 ### Referências
+
+##### SOA SUITE REST Tutorial
+https://www.dropbox.com/s/ul2dogyia6sbpjf/SOA%20SUITE%20REST%20Tutorial.mov?dl=0
 
 ##### Integrating REST Operations in SOA Composite Applications
 https://docs.oracle.com/en/middleware/soa-suite/soa/12.2.1.3/develop/integrating-rest-operations-soa-composite-applications.html#GUID-F11C4900-67D6-4434-83AC-8EB1D52BE238
