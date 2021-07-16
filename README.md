@@ -86,6 +86,12 @@ Nesta etapa, vamos criar um projeto com os seguintes objetivos:
 
 O projeto completo está disponível com esta documentação, portanto, você pode simplesmente alterar as configurações para pode compilar, montar o pacote e implantar em sua instância de SOA SUITE.
 
+Este documento não irá mostrar em detalhes como implementar serviços REST. 
+Entendo que você já saiba implementar serviços REST e também consumir serviços com o SOA SUITE.
+Caso você ainda não saiba como implementar ou queira apenas relembrar como, veja este vídeo:
+
+[Como implementar e consumir serviços REST com Oracle SOA SUITE](https://www.dropbox.com/s/ul2dogyia6sbpjf/SOA%20SUITE%20REST%20Tutorial.mov?dl=0)
+
 Baixe o projeto **SOAKafkaProducerApp** e abra as pastas até encontrar o arquivo de aplicação jws:
 
     /SOAKafkaProducerApp/SOAKafkaProducerApp/SOAKafkaProducerApp.jws
@@ -532,27 +538,81 @@ O arquivo **build.properties** determina as propriedades que serão utilizadas n
     
 ### Inicializando o ambiente SOA SUITE para testes
 
-Primeiramente abra a porta do firewall de seu ambiente SOA SUITE. A porta a ser liberada é a 9092.
+Primeiramente abra a porta do firewall de seu ambiente SOA SUITE. A porta a ser liberada é a 9092, que representa a porta do Oracle Streaming ou Kafka.
+
+### Como ativar o Servidor SOA Integrado no JDeveloper
+
+O JDeveloper possui um servidor integrado SOA SUITE para desenvolvimento e testes. Trata-se de um servidor com praticamente todas as funcionalidades necessárias para que você possa desenvolver seus serviços SOA.
+Para poder utilizar este servidor, você deve cria-lo e ativa-lo.
+
+Para ativar o servidor, você precisa primeiro visualizar os servidores de aplicação.
+Para isto, vá na opção "Window" e selecione "Application Servers" conforme abaixo:
+
+![jdeveloper-select-app-server.png](https://github.com/hoshikawa2/repo-image/blob/master/jdeveloper-select-app-server.png?raw=true)
+
+A janela de servidores de aplicação aparecerá no lado esquerdo da tela.
+Verifique se o "integratedWeblogicServer" já está criado em sua janela.
+Caso não esteja, você precisará criar para depois ativá-lo para uso.
+
+Vá até a opção "Run" e selecione "Start Server Instance" conforme abaixo:
+
+![jdev-start-app-server.gif](https://github.com/hoshikawa2/repo-image/blob/master/jdev-start-app-server.gif?raw=true)
+
+E preencha os dados necessários para criar sua instância de weblogic.
+Anote os valores pois precisará depois para testes.
+
+![jdev-create-app-server.gif](https://github.com/hoshikawa2/repo-image/blob/master/jdev-create-app-server.gif?raw=true)
+
+Se você criou o servidor ou se já estava disponível, clique com o botão direito do mouse no seu servidor e ative-o conforme abaixo:
+
+![jdeveloper-start-app-server.png](https://github.com/hoshikawa2/repo-image/blob/master/jdeveloper-start-app-server.png?raw=true)
+
 
 ### Executando o Deployment Manual no SOA SUITE
 
+Primeiramente vamos realizar a implantação de seu serviço de consumo Kafka (SOAKafkaConsumerPrj) de forma manual.
+Para isto, localize sua aba "Applications" e abra as opções de menu com o botão direito do mouse conforme a figura abaixo:
+
 ![soa-deploy-1.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-1.png?raw=true)
+
+Selecione a opção "Deploy" e em seguida crie um novo perfil de implantação.
+Você verá uma tela de configuração e deverá escolher o tipo de perfil como "SOA-SAR File" pois iremos gerar um arquivo.
 
 ![soa-deploy-2.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-2.png?raw=true)
 
+Esta é a preparação para podermos implantar seu pacote na estapa seguinte.
+Na tela seguinte, mantenha as opções fornecidas e clique em "OK". Vamos para a etapa seguinte.
+
 ![soa-deploy-3.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-3.png?raw=true)
+
+Abrindo novamente a opção de menu "Deploy" você encontrará agora sua opção de implantação criada e pronta para uso. Selecione-a.
 
 ![soa-deploy-4.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-4.png?raw=true)
 
+Agora vamos escolher a opção de implantação diretamente em seu servidor SOA. Escolha então a opção conforme a imagem abaixo:
+
 ![soa-deploy-5.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-5.png?raw=true)
+
+Deixe todos as opções fornecidas e marque "Overwrite any existing composites with the same revision ID".
+Se esta opção estiver desmarcada e você tentar realizar implantações seguidas após sua primeira execução, você será interrompido com uma mensagem de erro.
 
 ![soa-deploy-6.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-6.png?raw=true)
 
+Selecione então a opção "IntegratedWeblogicServer". Esta opção representa o servidor integrado do JDeveloper explicado na seção anterior (Como ativar o Servidor SOA Integrado no JDeveloper)
+
 ![soa-deploy-8.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-8.png?raw=true)
+
+Se seu servidor Weblogic do JDeveloper foi criado e iniciado com sucesso, você verá a opção abaixo e o status "RUNNING" confirmando que tudo está OK.
+Caso não veja esta opção, provavelmente você ainda não criou o servidor ou então não o iniciou. Reveja as etapas anteriores.
 
 ![soa-deploy-9.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-9.png?raw=true)
 
+Confirme com "Next" até a tela de resumo e clique e "Finish".
+
 ![soa-deploy-10.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-10.png?raw=true)
+
+Na janela inferior central, você poderá acompanhar a implantação de sua aplicação.
+Aguarde até que você veja "Deploy finished" como mensagem de sucesso.
 
 ![soa-deploy-11.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-deploy-11.png?raw=true)
 
