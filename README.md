@@ -13,7 +13,6 @@ O **Oracle Visual Builder Studio** é a ferramenta oficial da **Oracle** para au
 * **Oracle Integration (OIC)**
 * Entre várias outras tecnologias
 
-ESTE ARTIGO AINDA NÃO ESTÁ COMPLETO. FAVOR AGUARDAR A FINALIZAÇÃO
 
 ### Criando sua instância de Oracle Streaming
 
