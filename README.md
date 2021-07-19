@@ -241,7 +241,20 @@ O código Java chamado neste Java Embedding é responsável pelas rotinas de pro
 
 ![jdev-reply-details.png](https://github.com/hoshikawa2/repo-image/blob/master/jdev-reply-details.png?raw=true)
 
+### Incluindo os pacotes Java para seu código com o MAVEN
 
+Neste projeto, temos a injeção de código Java para chamar a API do Kafka ou do Oracle Cloud Streaming.
+Por se tratar de código Java, muitas vezes são necessárias as inclusões de pacotes para a utilização de frameworks.
+O MAVEN é a ferramenta mais utilizada nestes casos e para isto, você deve incluí-lo no seu projeto.
+Com o botão direito do mouse, abra a opção em cima de seu projeto e selecione "From Galery" como na imagem abaixo:
+
+![soa-create-pom-file.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-create-pom-file.png?raw=true)
+
+E selecione a opção "Maven POM for Project".
+
+![soa-maven-select.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-maven-select.png?raw=true)
+
+Com isto, você conseguirá configurar seu pacote com os frameworks necessários.
 
 ### Build com Maven
 
@@ -264,6 +277,8 @@ Assim você conseguirá visualizar o código do arquivo **pom.xml**
 
 Aqui uma alteração muito importante para o processo de **DevOps**. Você **PRECISA** incluir estas linhas para a automação:
 
+    O projeto já está configurado para atender a automação DevOps, porém em projetos novos,
+    siga este procedimento para automatizar o processo de DevOps.
     Entre a tag <build> e a tag <plugins> você poderá incluir este código, o qual será responsável pela mágica da montagem do pacote de seu software para o deployment posterior com o **Ant**:
     
     <!-- Para automação DevOps, necessita incluir as 3 linhas abaixo -->
