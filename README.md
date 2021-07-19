@@ -376,6 +376,15 @@ Logo, o seu código completo ficaria assim:
 
 No processo de **DevOps** o **Ant** será fundamental para a construção do pacote SOA SUITE e também para o deployment deste pacote no servidor do **Weblogic SOA SUITE** remoto.
 
+Assim como na criação de seu arquivo em MAVEN (pom.xml), para criar seu arquivo build.xml, com o botão direito do mouse, abra a opção em cima de seu projeto e selecione "From Galery" como na imagem abaixo:
+
+![soa-create-pom-file.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-create-pom-file.png?raw=true)
+
+E selecione a opção "Ant" no menu lateral esquerdo e "Buildfile from Project" conforme abaixo:
+
+![soa-create-ant.png](https://github.com/hoshikawa2/repo-image/blob/master/soa-create-ant.png?raw=true)
+
+
 O arquivo **build.xml** é um arquivo de configuração muito comum para utilização com o **Ant**. O formato deste arquivo é no formato **XML**
 
 
