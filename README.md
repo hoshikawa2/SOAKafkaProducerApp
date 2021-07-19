@@ -13,6 +13,13 @@ O **Oracle Visual Builder Studio** é a ferramenta oficial da **Oracle** para au
 * **Oracle Integration (OIC)**
 * Entre várias outras tecnologias
 
+O projeto apresentado a seguir mostra um exemplo de como implementar as seguintes funcionalidades no **Oracle SOA SUITE**
+
+* Exposição de um Serviço REST
+* Trabalhar com tópicos Kafka (ou Oracle Cloud Streaming) através de uma API REST compatível com Kafka
+* Implementar uma chamada **embedded** Java
+* Implantar automaticamente seu pacote **SOA SUITE** no servidor **SOA**
+
 
 ### Criando sua instância de Oracle Streaming
 
