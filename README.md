@@ -21,7 +21,16 @@ O projeto apresentado a seguir mostra um exemplo de como implementar as seguinte
 * Implantar automaticamente seu pacote **SOA SUITE** no servidor **SOA**
 
 
+    Observação Importante: Atualmente, só é possível implementar CI/CD com Oracle SOA Suite através do
+    Oracle Visual Builder Studio. Isto ocorre porque somente o Visual Builde Studio possui plugins já
+    pré-instalados na máquina virtual para processar e compilar (BUILD) os pacotes necessários.
+    Portanto, ainda não é possível implementar CI/CD com outras ferramentas de mercado como o Jenkins.
+
 ### Criando sua instância de Oracle Streaming
+
+O Oracle Cloud Streaming faz parte deste exemplo, onde teremos uma implementação de serviço SOA para produzir e outro serviço para consumir dados em uma fila de mensagens. Então nossa primeira parada será provisionar um ambiente de Oracle Streaming.
+
+O Oracle Cloud Streaming é uma aplicação que tem por objetivo servir como uma fila de mensagens assim como a ferramenta open-source Kafka. O Oracle Streaming é uma solução gerenciada, ou seja, você cria uma instância para uso e não precisa se preocupar com a governança da infra-estrutura. Pague apenas pelo que utilizar. A ferramenta permite ainda que você utilize a API REST do Kafka, tornando-a compatível com projetos já existentes de Kafka com as vantagens de "cloud as a service".
 
 Primeiramente, vamos criar um grupo de usuários para Streaming e habilitar os usuários neste grupo.
 Feito isto, podemos então determinar os acessos a este grupo através das Policies.
